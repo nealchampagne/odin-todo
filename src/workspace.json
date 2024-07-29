@@ -1,0 +1,54 @@
+{
+  "projects": [{
+    "id": "projectGUID",
+    "title": "project1",
+    "description": "",
+    "dueDate": "",
+    "priority": "",
+    "notes": "",
+    "children": ["taskGUID","taskGUID","taskGUID"]
+    }, {}],
+  "tasks": [{
+    "id": "taskGUID",
+    "title": "task1",
+    "description": "",
+    "dueDate": "",
+    "priority": "",
+    "notes": "",
+    "parent": "GUID",
+    "subtasks": [{
+      "title": "subtask1",
+      "description": "",
+      "dueDate": "",
+      "priority": "",
+      "notes": ""
+      }, {
+      "title": "subtask2",
+      "description": "",
+      "dueDate": "",
+      "priority": "",
+      "notes": ""
+      }]
+    }, {
+    "id": "taskGUID",
+    "title": "task2",
+    "description": "",
+    "dueDate": "",
+    "priority": "",
+    "notes": "",
+    "parent": "projectGUID",
+    "subtasks": [{
+      "title": "subtask1",
+      "description": "",
+      "dueDate": "",
+      "priority": "",
+      "notes": ""
+      }, {
+      "title": "subtask2",
+      "description": "",
+      "dueDate": "",
+      "priority": "",
+      "notes": ""
+      }]
+    }]
+}
