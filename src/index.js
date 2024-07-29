@@ -1,3 +1,3 @@
-import homeLoad from './homeLoad.js';
+import inboxLoad from './inbox.js';
 
-homeLoad();
+inboxLoad();
