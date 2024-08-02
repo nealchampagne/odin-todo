@@ -1,15 +1,15 @@
+import clearContent from './clearcontent.js';
 import inboxLoad from './inbox.js';
-import inputModal from './input.js';
+import initializeStorage from './initializestorage.js';
 import './style.css';
 
 inboxLoad();
+initializeStorage();
 
 const content = document.getElementById('content');
-const addTask = document.createElement('button');
+const inbox = document.getElementById('inbox');
 
-addTask.setAttribute('id', 'add');
-addTask.textContent = '+';
-
-addTask.addEventListener('click', () => inputModal());
-
-content.appendChild(addTask);
+inbox.addEventListener('click', () => {
+  clearContent();
+  inboxLoad();
+});
