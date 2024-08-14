@@ -1,19 +1,32 @@
-import { min, parseJSON } from 'date-fns';
+import { compareAsc, parseJSON } from 'date-fns';
 
 const dateSort = arr => {
-  console.log(arr);
   if (arr) {
-  arr.sort((a, b) => {
-    min([parseJSON(a.dueDate), parseJSON(b.dueDate)]) === parseJSON(a.dueDate) ? 1 : -1;
-    console.log(min([parseJSON(a.dueDate), parseJSON(b.dueDate)]))
+    const sortedArray = arr.sort((a, b) => {
 
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
-    nameA < nameB ? -1 : 1;
+      if (a.dueDate === 'None' && b.dueDate === 'None') {
 
-    return 0;
-  })}
-  return arr;
+        return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
+
+      } else if (a.dueDate === 'None') {
+        return -1;
+      } else if (b.dueDate === 'None') {
+        return 1;
+      }
+
+      if (compareAsc(parseJSON(a.dueDate), parseJSON(b.dueDate)) !== 0) {
+
+        return compareAsc(parseJSON(a.dueDate), parseJSON(b.dueDate));
+
+      } else {
+
+        return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
+
+      };
+    });
+    return sortedArray;
+  };
+  return sortedArray;
 }
 
 export default dateSort;

@@ -1,5 +1,5 @@
-import clearChildren from './clearchildren.js';
 import dateSort from './sort.js';
+import { format } from 'date-fns';
 
 const populateToDos = (node, arr) => {
 
@@ -7,28 +7,38 @@ const populateToDos = (node, arr) => {
 
     const toDoCard = document.createElement('div');
     const name = document.createElement('div');
+    const toDoContent = document.createElement('div');
     const dueDate = document.createElement('div');
     const desc = document.createElement('div');
-    const priority = document.createElement('div');
     
-    toDoCard.classList.add('card');
-    toDoCard.classList.add(`priority${todo.priority}`);
+    toDoCard.classList.add(`${todo.type}card`);
+    toDoCard.classList.add(`${todo.priority}priority`);
 
-    name.classList.add('name');
+    toDoContent.classList.add(`${todo.type}content`);
+
+    name.classList.add('todoname');
     name.textContent = todo.name;
 
-    dueDate.classList.add('duedate');
-    dueDate.textContent = todo.dueDate;
+    dueDate.classList.add('tododuedate');
+    if (todo.dueDate === 'None') {
+      dueDate.textContent = `N/A`;
+    } else {
+      dueDate.textContent = `${format(todo.dueDate, 'MMM d, y')}`;
+    }
 
-    desc.classList.add('desc');
-    desc.textContent = todo.description;
-
-    priority.classList.add('priority');
-    priority.textContent = todo.priority;
+    desc.classList.add('tododesc');
+    desc.textContent = `${todo.description}`;
+    if (desc.textContent === '') {
+      desc.setAttribute('hidden', 'true');
+      toDoCard.classList.add('nodesc');
+    }
 
     node.appendChild(toDoCard);
 
-    toDoCard.appendChild(name);
+    toDoCard.appendChild(toDoContent);
+    toDoContent.appendChild(name);
+    toDoContent.appendChild(desc);
+    toDoContent.appendChild(dueDate);
 
     if (todo.type === 'task') {
 
@@ -52,12 +62,9 @@ const populateToDos = (node, arr) => {
           }
         })
       }
+      parentProject.classList.add('todoparent')
       toDoCard.appendChild(parentProject);
     };
-
-    toDoCard.appendChild(dueDate)
-    toDoCard.appendChild(desc);
-    toDoCard.appendChild(priority);
   })
 };
 

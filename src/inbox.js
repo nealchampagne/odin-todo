@@ -1,20 +1,31 @@
-import inputModal from "./input";
+import clearChildren from "./clearchildren";
+import inputForm from "./input";
+import populateToDos from "./populatetodos";
 
 const inboxLoad = () => {
 
   const content = document.getElementById('content');
-  const main = document.createElement('div');
-  const addTask = document.createElement('button');
+  const inboxHeading = document.createElement('div');
+  const addLabel = document.getElementById('addlabel');
+  const addContainer = document.querySelector('.addcontainer');
 
-  main.classList.add('main');
-  main.textContent = 'Hello ToDo!';
-  addTask.setAttribute('id', 'add');
-  addTask.textContent = '+';
+  inboxHeading.classList.add('pageheading');
 
-  addTask.addEventListener('click', () => inputModal());
+  inboxHeading.textContent = 'Inbox';
 
-  content.appendChild(main);
-  content.appendChild(addTask);
+  addLabel.textContent = 'Add task';
+
+  clearChildren(content);
+
+  content.appendChild(inboxHeading);
+
+  addContainer.addEventListener('click', () => inputForm('task', inboxLoad));
+
+  if (JSON.parse(localStorage.getItem('tasks'))) {
+    populateToDos(content, JSON.parse(localStorage.getItem('tasks')));
+  } else {
+    alert(`ERROR: Tasks array is missing!`)
+  };
 };
 
 export default inboxLoad;
