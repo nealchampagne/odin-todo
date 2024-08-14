@@ -4,23 +4,35 @@
   margin: 0;
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  src: url('./fonts/MaterialSymbolsRounded-VariableFont.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --sidebar-color: hsl(0, 50%, 94%);
   --sidebar-hover: hsl(0, 20%, 84%);
   --button-red: hsl(0, 50%, 54%);
   --button-hover: hsl(0, 50%, 44%);
   --page-font: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
-  
+  --priority-0: hsl(0, 82%, 59%);
+  --priority-1: hsl(24, 88%, 62%);
+  --priority-2: hsl(61, 72%, 72%);
+  --priority-3: hsl(113, 78%, 74%);
+  --priority-4: hsl(197, 88%, 62%);
 }
 
 body {
   height: 100vh;
   display: grid;
   grid-template-columns: 20rem 1fr;
-  justify-items: stretch;
+  justify-items: center;
 }
 
-.sidebar {
+#sidebar {
+  width: 20rem;
   display: grid;
   justify-items: center;
   align-items: start;
@@ -30,7 +42,8 @@ body {
 
 .nav {
   display: grid;
-  grid-template-rows: repeat(4, 3rem);
+  grid-template-rows: repeat(auto-fit, 3rem);
+  height: 100%;
   width: 100%;
   justify-items: start;
   align-items: center;
@@ -54,53 +67,181 @@ body {
   cursor: pointer;
 }
 
-.main {
+.dropdown {
+  font-family: 'Material Icons';
+}
+
+.container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: grid;
+  grid-auto-rows: min-content;
+  justify-items: start;
+  align-items: start;
+  gap: 1rem;
+  padding: 5rem 10rem;
+  width: 60rem;
+}
+
+#content {
+  display: grid;
+  grid-template-rows: 5rem repeat(auto-fit, minmax(0, 5rem));
+  justify-items: start;
+  align-items: center;
+  font-family: var(--page-font);
+}
+
+.pageheading {
   display: grid;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
+  padding: 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.taskcard, .projectcard {
+  display: grid;
+  grid-template-columns: 1fr 0.25fr;
+  justify-self: center;
+  align-items: center;
+  gap: 1rem;
+  width: 40rem;
+  height: 5rem;
+  border-bottom: 1px solid lightgray;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.taskcontent {
+  display: grid;
+  grid-template-rows: repeat(3, 1.5rem);
+  align-self: start;
+  align-items: start;
+}
+
+.nodesc {
+  height: 3.5rem;
+}
+
+.nodesc .taskcontent{
+  grid-template-rows: repeat(2, 1.5rem);
+}
+
+.todoname {
+  overflow-y: auto;
+  font-size: 1rem;
+}
+
+.tododuedate {
+  font-size: 0.8rem;
+  color: red;
+}
+
+.tododesc {
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 0.25rem;
+}
+
+.parentproject {
+  align-self: end;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+}
+
+/* .highestpriority {
+  border: 3px solid var(--priority-0);
+}
+
+.highpriority {
+  border: 3px solid var(--priority-1);
+}
+
+.mediumpriority {
+  border: 3px solid var(--priority-2);
+}
+
+.lowpriority {
+  border: 3px solid var(--priority-3);
+}
+
+.lowestpriority {
+  border: 3px solid var(--priority-4);
+} */
+
+.addcontainer {
+  display: grid;
+  grid-template-columns: 2rem 7rem;
+  justify-items: start;
+  align-items: center;
+  font-family: var(--page-font);
 }
 
 #add {
-  position: absolute;
-  top: 90vh;
-  left: 90vw;
-  height: 3rem;
-  width: 3rem;
+  display: grid;
+  height: 1.75rem;
+  width: 1.75rem;
   border: none;
-  border-radius: 3rem;
-  font-family: var(--page-font);
-  font-size: 2rem;
-  color: hsl(0, 0%, 50%);
-  box-shadow: 3px 3px 5px hsl(0, 0%, 50%);
+  border-radius: 1rem;
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+  color: hsl(0, 0%, 20%);
+  background: white;
 }
 
-#add:hover {
+.addcontainer:hover {
   cursor: pointer;
-  box-shadow: 3px 3px 5px hsl(0, 0%, 30%);
+  font-weight: 700;
 }
 
-.modal {
-  position: fixed;
+.taskinput, .projectinput {
+  display: grid;
   top: 10vh;
   left: 50%;
-  height: 45vh;
-  width: 20rem;
+  width: 40rem;
   display: grid;
-  grid-template-rows: 2rem 1fr 0.15fr;
-  justify-items: center;
+  grid-template-rows: 2rem 1fr 3rem;
+  justify-items: start;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 2rem;
   background: white;
+  border: 1px solid black;
   border-radius: 0.5rem;
-  box-shadow: 0px 0px 10px 10px hsl(0, 0%, 95%);
+}
 
+.taskinput {
+  height: 25rem;
+}
+
+.projectinput{
+  height: 22rem;
+}
+
+.inputtop {
+  display: grid;
+  grid-template-columns: 1fr 2rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.formlabel {
+  justify-self: start;
+  height: 100%;
+  font-family: var(--page-font);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .closebtn {
   justify-self: end;
   width: 2rem;
   height: 2rem;
+  margin-right: -1rem;
+  margin-top: -1rem;
   border: none;
   background: white;
   color: var(--button-red);
@@ -113,26 +254,50 @@ body {
   color: var(--button-hover);
 }
 
-#taskform {
+.taskform, .projectform {
   display: grid;
-  grid-template-rows: 2rem 3rem 2rem 3rem 2rem 3rem 2rem 6rem 2rem 3rem;
   justify-items: start;
   align-items: start;
+  justify-self: start;
   font-family: var(--page-font);
+}
+
+.taskform, .projectform {
+  grid-template-columns: 7rem 1fr;
+}
+
+.taskform {
+  grid-template-rows: 3rem 6rem 3rem 3rem 3rem;
+}
+
+.projectform {
+  grid-template-rows: 3rem 6rem 3rem 3rem;
 }
 
 label {
   margin-top: 0.25rem;
 }
 
-.input {
+.nameinput, .dateinput {
   appearance: none;
   background: white;
   height: 2rem;
-  width: 15rem;
   padding: 1rem 0.5rem;
   border: 1px solid black;
   border-radius: 5px;
+  font-family: var(--page-font);
+}
+
+.nameinput {
+  width: 25rem;
+}
+
+.dateinput {
+  width: 10rem;
+}
+
+.dateinput:hover {
+  cursor: pointer;
 }
 
 .textarea {
@@ -155,21 +320,21 @@ label {
   font-family: var(--page-font);
 }
 
-.input:focus-visible, .textarea:focus-visible, .select:focus-visible {
+.nameinput:focus-visible, .dateinput:hover, .textarea:focus-visible, .select:focus-visible {
   outline: none;
 }
 
-.input:hover, .textarea:hover, .select:hover {
+.nameinput:hover, .dateinput:hover, .textarea:hover, .select:hover {
   background: hsl(0, 0%, 95%);
 }
 
-.input:focus, .textarea:focus, .select:focus {
+.nameinput:focus, .dateinput:focus, .textarea:focus, .select:focus {
   border: 1px solid blue;
   background: white;
 }
 
 .submitbtn {
-  justify-self: center;
+  justify-self: end;
   align-self: start;
   margin-top: 0.25rem;
   padding: 0.5rem 1rem;
