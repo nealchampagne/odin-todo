@@ -3,23 +3,19 @@ import { v4 as uuidv4 } from 'uuid';
 import writeToStorage from './writestorage.js';
 import clearChildren from './clearchildren.js';
 import moment from 'moment/moment.js';
+import clearAddButton from "./clearaddbutton";
 
-const inputModal = (func) => {
+const inputForm = (type, func) => {
 
-  // Create DOM elements for modal input form
-  const content = document.getElementById('content');
-  const modal = document.createElement('div');
-  const modalTop = document.createElement('div');
+  // Create DOM elements for input input form
+  const container = document.querySelector('.container');
+  const addContainer = document.querySelector('.addcontainer');
+  const input = document.createElement('div');
+  const inputTop = document.createElement('div');
   const formLabel = document.createElement('div');
 
   const close = document.createElement('button');
   const form = document.createElement('form');
-
-  const type = document.createElement('select');
-  const typeLabel = document.createElement('label');
-  const noType = document.createElement('option');
-  const type1 = document.createElement('option');
-  const type2 = document.createElement('option');
 
   const name = document.createElement('input');
   const nameLabel = document.createElement('label');
@@ -46,36 +42,19 @@ const inputModal = (func) => {
 
   const submit = document.createElement('button');
 
-  // Set attributes on modal elements
-  setAttributes(modal, {'class': 'tinymodal'});
+  // Set attributes on input elements
+  setAttributes(input, {'class': `${type}input`});
 
-  modalTop.classList.add('modaltop');
+  inputTop.classList.add('inputtop');
   formLabel.classList.add('formlabel');
-  formLabel.textContent = 'New To-Do';
+  formLabel.textContent = `New ` + type.charAt(0).toUpperCase() + type.slice(1);
 
   // Close button
   close.classList.add('closebtn');
   close.textContent = '×';
 
-  // Form
-  form.classList.add('tinyform');
-
-  // Type field
-  setAttributes(type, {'class': 'select', 'id': 'type', 'name': 'type'});
-  typeLabel.setAttribute('for', 'type');
-  typeLabel.textContent = 'Type';
-
-  setAttributes(noType, {'disabled': 'true', 'selected': 'true', 'value': 'true', 'hidden': 'true'});
-  noType.textContent = '-----';
-
-  setAttributes(type1, {'value': 'task'});
-  type1.textContent = 'Task';
-
-  setAttributes(type2, {'value': 'project'});
-  type2.textContent = 'Project';
-
   // Name field
-  setAttributes(name, {'class': 'input', 'id': 'name', 'name': 'name', 
+  setAttributes(name, {'class': 'nameinput', 'id': 'name', 'name': 'name', 
     'type': 'text', 'hidden': 'true'});
 
   setAttributes(nameLabel, {'for': 'name', 'hidden': 'true'});
@@ -91,7 +70,7 @@ const inputModal = (func) => {
   noProject.textContent = 'None';
 
   // Due date
-  setAttributes(dueDate, {'class': 'input', 'id': 'duedate', 'name': 'duedate', 
+  setAttributes(dueDate, {'class': 'dateinput', 'id': 'duedate', 'name': 'duedate', 
     'type': 'date' , 'hidden': 'true'});
 
   setAttributes(dueLabel, {'for': 'duedate', 'hidden': 'true'});
@@ -99,7 +78,7 @@ const inputModal = (func) => {
 
   // Description
   setAttributes(desc, {'class': 'textarea', 'id': 'desc', 'name': 'desc',
-    'rows': '4', 'cols': '27', 'overflow-y': 'scroll', 'hidden': 'true'});
+    'rows': '4', 'cols': '45', 'overflow-y': 'scroll', 'hidden': 'true'});
 
   setAttributes(descLabel, {'for': 'desc', 'hidden': 'true'});
   descLabel.textContent = 'Description';
@@ -125,30 +104,36 @@ const inputModal = (func) => {
   // Submit button
   setAttributes(submit, {'class': 'submitbtn', 'hidden': 'true'});
 
-  submit.textContent = 'Submit';
+  submit.textContent = `Submit ${type}`;
 
   // Append elements to the DOM
-  const populateModal = () => {
+  const populateInput = () => {
 
-    clearChildren(modal);
+    container.insertBefore(input, addContainer);
 
-    content.appendChild(modal);
+    input.appendChild(inputTop);
 
-    modal.appendChild(modalTop);
+    inputTop.appendChild(formLabel);
+    inputTop.appendChild(close);
 
-    modalTop.appendChild(formLabel);
-    modalTop.appendChild(close);
-
-    modal.appendChild(form);
-
-    form.appendChild(typeLabel);
-    form.appendChild(type);
-    type.append(noType);
-    type.appendChild(type1);
-    type.appendChild(type2);
+    input.appendChild(form);
 
     form.appendChild(nameLabel);
     form.appendChild(name);
+
+    form.appendChild(descLabel);
+    form.appendChild(desc);
+
+    form.appendChild(dueLabel);
+    form.appendChild(dueDate);
+
+    form.appendChild(prioLabel);
+    form.appendChild(priority);
+    priority.appendChild(prio0);
+    priority.appendChild(prio1);
+    priority.appendChild(prio2);
+    priority.appendChild(prio3);
+    priority.appendChild(prio4);
 
     form.appendChild(parentLabel);
     form.appendChild(parentProject);
@@ -168,96 +153,75 @@ const inputModal = (func) => {
       parentProject.appendChild(projectOption);
     });
 
-    form.appendChild(dueLabel);
-    form.appendChild(dueDate);
-
-    form.appendChild(descLabel);
-    form.appendChild(desc);
-
-    form.appendChild(prioLabel);
-    form.appendChild(priority);
-    priority.appendChild(prio0);
-    priority.appendChild(prio1);
-    priority.appendChild(prio2);
-    priority.appendChild(prio3);
-    priority.appendChild(prio4);
-
-    modal.appendChild(submit);
+    input.appendChild(submit);
   }
 
-  populateModal();
+  if (type === 'task') {
 
-  // Toggle modal type depending on type selection
-  type.addEventListener('change', () => {
-    if (type.value === 'task') {
+    input.removeAttribute('class');
+    input.classList.add('taskinput');
 
-      modal.removeAttribute('class');
-      modal.classList.add('taskmodal');
+    form.removeAttribute('class');
+    form.classList.add('taskform');
 
-      form.removeAttribute('class');
-      form.classList.add('taskform');
+    name.removeAttribute('hidden');
+    nameLabel.removeAttribute('hidden');
 
-      name.removeAttribute('hidden');
-      nameLabel.removeAttribute('hidden');
+    parentLabel.removeAttribute('hidden');
+    parentProject.removeAttribute('hidden');
 
-      parentLabel.removeAttribute('hidden');
-      parentProject.removeAttribute('hidden');
+    dueDate.removeAttribute('hidden');
+    dueLabel.removeAttribute('hidden');
 
-      dueDate.removeAttribute('hidden');
-      dueLabel.removeAttribute('hidden');
+    desc.removeAttribute('hidden');
+    descLabel.removeAttribute('hidden');
 
-      desc.removeAttribute('hidden');
-      descLabel.removeAttribute('hidden');
+    priority.removeAttribute('hidden');
+    prioLabel.removeAttribute('hidden');
 
-      priority.removeAttribute('hidden');
-      prioLabel.removeAttribute('hidden');
+    submit.removeAttribute('hidden');
+  }
+  if (type === 'project') {
 
-      submit.removeAttribute('hidden');
+    input.removeAttribute('class');
+    input.classList.add('projectinput');
 
-      populateModal();
-    }
-    if (type.value === 'project') {
+    form.removeAttribute('class');
+    form.classList.add('projectform');
 
-      modal.removeAttribute('class');
-      modal.classList.add('projectmodal');
+    name.removeAttribute('hidden');
+    nameLabel.removeAttribute('hidden');
 
-      form.removeAttribute('class');
-      form.classList.add('projectform');
+    parentLabel.setAttribute('hidden', 'true');
+    parentProject.setAttribute('hidden', 'true');
 
-      name.removeAttribute('hidden');
-      nameLabel.removeAttribute('hidden');
+    dueDate.removeAttribute('hidden');
+    dueLabel.removeAttribute('hidden');
 
-      parentLabel.setAttribute('hidden', 'true');
-      parentProject.setAttribute('hidden', 'true');
+    desc.removeAttribute('hidden');
+    descLabel.removeAttribute('hidden');
 
-      dueDate.removeAttribute('hidden');
-      dueLabel.removeAttribute('hidden');
+    priority.removeAttribute('hidden');
+    prioLabel.removeAttribute('hidden');
 
-      desc.removeAttribute('hidden');
-      descLabel.removeAttribute('hidden');
+    submit.removeAttribute('hidden');
+  }
 
-      priority.removeAttribute('hidden');
-      prioLabel.removeAttribute('hidden');
+  populateInput();
 
-      submit.removeAttribute('hidden');
-
-      populateModal();
-    }
-  });
-
-  // Close the modal and reset the form
+  // Close the input and reset the form
   close.addEventListener('click', () => {
     form.reset();
-    modal.style.display = 'none';
+    input.remove();
   });
 
-  // Submit the To-do, close the modal, and reset the form
+  // Submit the To-do, close the input, and reset the form
   submit.addEventListener('click', () => {
     const newTodo = {};
-    if (type.value === 'project') {
+    if (type === 'project') {
       newTodo.name = name.value;
       newTodo.id = uuidv4();
-      newTodo.type = type.value;
+      newTodo.type = type;
       if (dueDate.value) {
         newTodo.dueDate = moment(dueDate.value);
       } else {
@@ -266,11 +230,11 @@ const inputModal = (func) => {
       newTodo.description = desc.value;
       newTodo.priority = priority.value;
 
-    } else if (type.value === 'task') {
+    } else if (type === 'task') {
       newTodo.name = name.value;
       newTodo.id = uuidv4();
       newTodo.parentId = parentProject.value;
-      newTodo.type = type.value;
+      newTodo.type = type;
       if (dueDate.value) {
         newTodo.dueDate = moment(dueDate.value);
       } else {
@@ -279,11 +243,11 @@ const inputModal = (func) => {
       newTodo.description = desc.value;
       newTodo.priority = priority.value;
       newTodo.subTasks = [];
-
     };
     writeToStorage(newTodo);
     form.reset();
-    modal.style.display = 'none';
+    input.remove();
+    clearAddButton();
     func();
   });
 
@@ -292,4 +256,4 @@ const inputModal = (func) => {
   });
 };
 
-export default inputModal;
+export default inputForm;
