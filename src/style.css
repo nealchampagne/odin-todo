@@ -75,7 +75,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   display: grid;
-  grid-auto-rows: min-content;
+  grid-auto-rows: min-contentg;
   justify-items: start;
   align-items: start;
   gap: 1rem;
