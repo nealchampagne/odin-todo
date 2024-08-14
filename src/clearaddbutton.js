@@ -1,7 +1,7 @@
-const addTodo = document.getElementById('add');
-
 const clearAddButton = () => {
-  addTodo.replaceWith(addTodo.cloneNode(true));
+  const addContainer = document.querySelector('.addcontainer');
+  const newAddContainer = addContainer.cloneNode(true);
+  addContainer.parentNode.replaceChild(newAddContainer, addContainer);
 }
 
 export default clearAddButton;
