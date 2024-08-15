@@ -6,11 +6,12 @@ const populateToDos = (node, arr) => {
   dateSort(arr).forEach(todo => {
 
     const toDoCard = document.createElement('div');
-    const name = document.createElement('div');
     const toDoContent = document.createElement('div');
-    const dueDate = document.createElement('div');
-    const desc = document.createElement('div');
+    const id = todo.id;
+    const name = document.createElement('div');
     
+    toDoCard.setAttribute('id', todo.id);
+
     toDoCard.classList.add(`${todo.type}card`);
     toDoCard.classList.add(`${todo.priority}priority`);
 
@@ -19,30 +20,29 @@ const populateToDos = (node, arr) => {
     name.classList.add('todoname');
     name.textContent = todo.name;
 
-    dueDate.classList.add('tododuedate');
-    if (todo.dueDate === 'None') {
-      dueDate.textContent = `N/A`;
-    } else {
-      dueDate.textContent = `${format(todo.dueDate, 'MMM d, y')}`;
-    }
-
-    desc.classList.add('tododesc');
-    desc.textContent = `${todo.description}`;
-    if (desc.textContent === '') {
-      desc.setAttribute('hidden', 'true');
-      toDoCard.classList.add('nodesc');
-    }
-
     node.appendChild(toDoCard);
-
     toDoCard.appendChild(toDoContent);
     toDoContent.appendChild(name);
-    toDoContent.appendChild(desc);
-    toDoContent.appendChild(dueDate);
 
     if (todo.type === 'task') {
-
+      
+      const dueDate = document.createElement('div');
+      const desc = document.createElement('div');
       const parentProject = document.createElement('div');
+
+      dueDate.classList.add('tododuedate');
+      if (todo.dueDate === 'None') {
+        dueDate.textContent = `N/A`;
+      } else {
+        dueDate.textContent = `${format(todo.dueDate, 'MMM d, y')}`;
+      }
+  
+      desc.classList.add('tododesc');
+      desc.textContent = `${todo.description}`;
+      if (desc.textContent === '') {
+        desc.setAttribute('hidden', 'true');
+        toDoCard.classList.add('nodesc');
+      }
 
       parentProject.classList.add('parentproject');
 
@@ -62,7 +62,9 @@ const populateToDos = (node, arr) => {
           }
         })
       }
-      parentProject.classList.add('todoparent')
+
+      toDoContent.appendChild(desc);
+      toDoContent.appendChild(dueDate);
       toDoCard.appendChild(parentProject);
     };
   })

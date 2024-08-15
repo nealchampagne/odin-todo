@@ -195,14 +195,14 @@ const inputForm = (type, func) => {
     parentLabel.setAttribute('hidden', 'true');
     parentProject.setAttribute('hidden', 'true');
 
-    dueDate.removeAttribute('hidden');
-    dueLabel.removeAttribute('hidden');
+    dueDate.setAttribute('hidden');
+    dueLabel.setAttribute('hidden');
 
-    desc.removeAttribute('hidden');
-    descLabel.removeAttribute('hidden');
+    desc.setAttribute('hidden');
+    descLabel.setAttribute('hidden');
 
-    priority.removeAttribute('hidden');
-    prioLabel.removeAttribute('hidden');
+    priority.setAttribute('hidden');
+    prioLabel.setAttribute('hidden');
 
     submit.removeAttribute('hidden');
   }
@@ -218,32 +218,33 @@ const inputForm = (type, func) => {
   // Submit the To-do, close the input, and reset the form
   submit.addEventListener('click', () => {
     const newTodo = {};
+    
     if (type === 'project') {
       newTodo.name = name.value;
       newTodo.id = uuidv4();
       newTodo.type = type;
-      if (dueDate.value) {
-        newTodo.dueDate = moment(dueDate.value);
-      } else {
-        newTodo.dueDate = 'None';
-      }
-      newTodo.description = desc.value;
-      newTodo.priority = priority.value;
 
     } else if (type === 'task') {
+
       newTodo.name = name.value;
       newTodo.id = uuidv4();
       newTodo.parentId = parentProject.value;
       newTodo.type = type;
+
       if (dueDate.value) {
+
         newTodo.dueDate = moment(dueDate.value);
+
       } else {
+
         newTodo.dueDate = 'None';
       }
+
       newTodo.description = desc.value;
       newTodo.priority = priority.value;
       newTodo.subTasks = [];
     };
+
     writeToStorage(newTodo);
     form.reset();
     input.remove();
