@@ -5,7 +5,7 @@ import clearChildren from './clearchildren.js';
 import moment from 'moment/moment.js';
 import clearAddButton from "./clearaddbutton";
 
-const inputForm = (type, func) => {
+const inputForm = (type, func, id = null) => {
 
   // Create DOM elements for input input form
   const container = document.querySelector('.container');
@@ -139,19 +139,29 @@ const inputForm = (type, func) => {
     form.appendChild(parentProject);
     clearChildren(parentProject);
 
-    parentProject.appendChild(noProject);
-
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
 
-    storedProjects.forEach(element => {
+    if (id) {
+      const fixedProj = storedProjects.find(obj => obj.id === id);
 
       const projectOption = document.createElement('option');
-
-      projectOption.setAttribute('value', element.id);
-      projectOption.textContent = element.name;
+      projectOption.setAttribute('value', fixedProj.id);
+      projectOption.textContent = fixedProj.name;
 
       parentProject.appendChild(projectOption);
-    });
+    } else {
+      parentProject.appendChild(noProject);
+
+      storedProjects.forEach(element => {
+
+        const projectOption = document.createElement('option');
+
+        projectOption.setAttribute('value', element.id);
+        projectOption.textContent = element.name;
+
+        parentProject.appendChild(projectOption);
+      });
+    }
 
     input.appendChild(submit);
   }
@@ -195,14 +205,14 @@ const inputForm = (type, func) => {
     parentLabel.setAttribute('hidden', 'true');
     parentProject.setAttribute('hidden', 'true');
 
-    dueDate.setAttribute('hidden');
-    dueLabel.setAttribute('hidden');
+    dueDate.setAttribute('hidden', 'true');
+    dueLabel.setAttribute('hidden', 'true');
 
-    desc.setAttribute('hidden');
-    descLabel.setAttribute('hidden');
+    desc.setAttribute('hidden', 'true');
+    descLabel.setAttribute('hidden', 'true');
 
-    priority.setAttribute('hidden');
-    prioLabel.setAttribute('hidden');
+    priority.setAttribute('hidden', 'true');
+    prioLabel.setAttribute('hidden', 'true');
 
     submit.removeAttribute('hidden');
   }
@@ -248,8 +258,11 @@ const inputForm = (type, func) => {
     writeToStorage(newTodo);
     form.reset();
     input.remove();
-    clearAddButton();
-    func();
+    if (id) {
+      func(id);
+    } else {
+      func();
+    };
   });
 
   form.addEventListener('submit', (event) => {
