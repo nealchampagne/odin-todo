@@ -1,16 +1,29 @@
 import { compareAsc, parseJSON } from 'date-fns';
 
-const dateSort = arr => {
+const sort = arr => {
+
   if (arr) {
+    
     const sortedArray = arr.sort((a, b) => {
+
+      if (!a.dueDate) {
+
+        return a.name.toUpperCase().localeCompare(b.name.toUpperCase);
+
+      };
+
+      if (a.dueDate) {
 
       if (a.dueDate === 'None' && b.dueDate === 'None') {
 
         return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
 
       } else if (a.dueDate === 'None') {
+
         return -1;
+
       } else if (b.dueDate === 'None') {
+
         return 1;
       }
 
@@ -23,10 +36,10 @@ const dateSort = arr => {
         return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
 
       };
-    });
+    }});
     return sortedArray;
   };
   return sortedArray;
-}
+};
 
-export default dateSort;
+export default sort;
