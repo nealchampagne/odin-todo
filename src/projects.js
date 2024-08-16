@@ -1,10 +1,16 @@
 import clearChildren from "./clearchildren";
+import clearAddButton from "./clearaddbutton";
 import inputForm from "./input";
-import populateToDos from "./populatetodos";
+import populateTasks from "./populatetasks";
+import populateProjects from "./populateprojects";
 
 const projectsLoad = () => {
   
   const content = document.getElementById('content');
+
+  clearChildren(content);
+  clearAddButton();
+
   const projectsHeading = document.createElement('div');
   const addLabel = document.getElementById('addlabel');
   const addContainer = document.querySelector('.addcontainer');
@@ -15,14 +21,12 @@ const projectsLoad = () => {
 
   addLabel.textContent = 'Add project'
 
-  clearChildren(content);
-
   content.appendChild(projectsHeading);
   
   addContainer.addEventListener('click', () => inputForm('project', projectsLoad));
 
   if (JSON.parse(localStorage.getItem('projects'))) {
-    populateToDos(content, JSON.parse(localStorage.getItem('projects')));
+    populateProjects(content);
   } else {
     alert(`ERROR: Projects array is missing!`)
   };

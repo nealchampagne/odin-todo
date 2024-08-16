@@ -1,7 +1,14 @@
 import clearChildren from "./clearchildren";
-import populateToDos from "./populatetodos";
+import clearAddButton from "./clearaddbutton";
+import inputForm from "./input";
+import populateTasks from "./populatetasks";
 
 const projectPageLoad = id => {
+
+  const content = document.getElementById('content');
+
+  clearChildren(content);
+  clearAddButton();
 
   const storedProjects = JSON.parse(localStorage.getItem('projects'));
   const project = storedProjects.find(obj => obj.id === id);
@@ -15,9 +22,7 @@ const projectPageLoad = id => {
 
   addLabel.textContent = 'Add task';
 
-  clearChildren(content);
-
-  content.appendChild(inboxHeading);
+  content.appendChild(projectHeading);
 
   addContainer.addEventListener('click', () => inputForm('task', projectPageLoad, id))
 
@@ -33,7 +38,7 @@ const projectPageLoad = id => {
         };
       }
     );
-    populateToDos(content, projTaskArray);
+    populateTasks(content, projTaskArray);
   } else {
     alert(`ERROR: Tasks array is missing!`)
   };
