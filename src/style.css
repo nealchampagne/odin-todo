@@ -17,11 +17,6 @@
   --button-red: hsl(0, 50%, 54%);
   --button-hover: hsl(0, 50%, 44%);
   --page-font: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
-  --priority-0: hsl(0, 82%, 59%);
-  --priority-1: hsl(24, 88%, 62%);
-  --priority-2: hsl(61, 72%, 72%);
-  --priority-3: hsl(113, 78%, 74%);
-  --priority-4: hsl(197, 88%, 62%);
 }
 
 body {
@@ -67,15 +62,11 @@ body {
   cursor: pointer;
 }
 
-.dropdown {
-  font-family: 'Material Icons';
-}
-
 .container {
   overflow-y: auto;
   overflow-x: hidden;
   display: grid;
-  grid-auto-rows: min-contentg;
+  grid-auto-rows: min-content;
   justify-items: start;
   align-items: start;
   gap: 1rem;
@@ -103,7 +94,6 @@ body {
 
 .taskcard, .projectcard {
   display: grid;
-  grid-template-columns: 1fr 0.25fr;
   justify-self: center;
   align-items: center;
   gap: 1rem;
@@ -112,6 +102,14 @@ body {
   border-bottom: 1px solid lightgray;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.taskcard {
+  grid-template-columns: 2rem 1fr 0.25fr;
+}
+
+.projectcard {
+  grid-template-columns: 1fr;
 }
 
 .taskcontent {
@@ -129,17 +127,65 @@ body {
   grid-template-rows: repeat(2, 1.5rem);
 }
 
-.todoname {
+.checkbox {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  align-self: start;
+  font-family: 'Material Icons';
+  font-weight: 700;
+}
+
+.highestpriority {
+  background: hsl(0, 84%, 65%);
+  border: 3px solid hsl(0, 56%, 38%);
+  color: hsl(0, 56%, 38%);
+}
+
+.highpriority {
+  background: hsl(24, 84%, 59%);
+  border: 3px solid hsl(24, 98%, 34%);
+  color: hsl(24, 98%, 34%);
+}
+
+.mediumpriority {
+  background: hsl(61, 58%, 66%);
+  border: 3px solid hsl(51, 85%, 32%);
+  color: hsl(51, 85%, 32%);
+}
+
+.lowpriority {
+  background: hsl(113, 78%, 87%);
+  border: 3px solid hsl(113, 50%, 27%);
+  color: hsl(113, 50%, 27%);
+}
+
+.lowestpriority {
+  background: hsl(197, 67%, 56%);
+  border: 3px solid hsl(226, 89%, 45%);
+  color: hsl(226, 89%, 45%);
+}
+
+.checkbox:hover {
+  cursor: pointer;
+}
+
+.taskname {
   overflow-y: auto;
   font-size: 1rem;
 }
 
-.tododuedate {
+.projectname {
+  overflow-y: auto;
+  font-size: 1.5rem;
+}
+
+.taskduedate {
   font-size: 0.8rem;
   color: red;
 }
 
-.tododesc {
+.taskdesc {
   text-overflow: ellipsis;
   font-size: 0.8rem;
   color: gray;
@@ -151,26 +197,6 @@ body {
   margin-bottom: 0.25rem;
   font-size: 0.8rem;
 }
-
-/* .highestpriority {
-  border: 3px solid var(--priority-0);
-}
-
-.highpriority {
-  border: 3px solid var(--priority-1);
-}
-
-.mediumpriority {
-  border: 3px solid var(--priority-2);
-}
-
-.lowpriority {
-  border: 3px solid var(--priority-3);
-}
-
-.lowestpriority {
-  border: 3px solid var(--priority-4);
-} */
 
 .addcontainer {
   display: grid;
@@ -217,7 +243,7 @@ body {
 }
 
 .projectinput{
-  height: 22rem;
+  height: 10rem;
 }
 
 .inputtop {
@@ -271,7 +297,7 @@ body {
 }
 
 .projectform {
-  grid-template-rows: 3rem 6rem 3rem 3rem;
+  grid-template-rows: 3rem;
 }
 
 label {
