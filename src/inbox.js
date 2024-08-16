@@ -1,10 +1,15 @@
 import clearChildren from "./clearchildren";
+import clearAddButton from "./clearaddbutton";
 import inputForm from "./input";
-import populateToDos from "./populatetodos";
+import populateTasks from "./populatetasks";
 
 const inboxLoad = () => {
 
   const content = document.getElementById('content');
+
+  clearChildren(content);
+  clearAddButton();
+
   const inboxHeading = document.createElement('div');
   const addLabel = document.getElementById('addlabel');
   const addContainer = document.querySelector('.addcontainer');
@@ -15,14 +20,12 @@ const inboxLoad = () => {
 
   addLabel.textContent = 'Add task';
 
-  clearChildren(content);
-
   content.appendChild(inboxHeading);
 
   addContainer.addEventListener('click', () => inputForm('task', inboxLoad));
 
   if (JSON.parse(localStorage.getItem('tasks'))) {
-    populateToDos(content, JSON.parse(localStorage.getItem('tasks')));
+    populateTasks(content, JSON.parse(localStorage.getItem('tasks')));
   } else {
     alert(`ERROR: Tasks array is missing!`)
   };
