@@ -12,7 +12,7 @@ const deleteFromStorage = (type, id , func, projId = null) => {
     localStorage.setItem('tasks', JSON.stringify(storedTasks));
 
     /** Call the page function again to reflect changes
-    /* Call the correct project if this occurs on a project page */
+     * Call the correct project if this occurs on a project page */
     if (projId) {
       func(projId);
     } else {
