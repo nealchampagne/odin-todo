@@ -3,6 +3,7 @@ import clearAddButton from "./clearaddbutton";
 import inputForm from "./input";
 import populateTasks from "./populatetasks";
 import showHideComplete from "./showhidecomplete";
+import initializeStorage from "./initializestorage";
 
 const homeLoad = () => {
 
@@ -56,6 +57,11 @@ const homeLoad = () => {
       showHideComplete();
     }
   });
+
+  if (!Array.isArray(JSON.parse(localStorage.getItem('tasks')))) {
+    alert('localStorage has been corrupted. Storage must be reset.')
+    initializeStorage();
+  };
 
   // Populate the page with task cards by calling populateTasks
   if (JSON.parse(localStorage.getItem('tasks'))) {

@@ -6,12 +6,10 @@ import clearChildren from './clearchildren.js';
 import moment from 'moment/moment.js';
 import sort from './sort.js';
 
-const inputForm = (type, func, id = null, node = null, editName = null, editParent = null, editDate = null, editDesc = null, editPrio = null) => {
+const inputForm = (type, func, projId = null, node = null, taskId = null, editName = null, editParent = null, editDate = null, editDesc = null, editPrio = null) => {
 
   // Create DOM elements for input input form
-  const container = document.querySelector('.container');
   const content = document.getElementById('content');
-  const addContainer = document.querySelector('.addcontainer');
   const input = document.createElement('div');
   const inputTop = document.createElement('div');
   const formLabel = document.createElement('div');
@@ -39,8 +37,6 @@ const inputForm = (type, func, id = null, node = null, editName = null, editPare
   const prio2 = document.createElement('option');
   const prio3 = document.createElement('option');
   const prio4 = document.createElement('option');
-  
-  // TO IMPLEMENT (PARENT PROJECT FOR TASKS)
 
   const submit = document.createElement('button');
 
@@ -182,43 +178,48 @@ const inputForm = (type, func, id = null, node = null, editName = null, editPare
 
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
 
-    // If adding a task on a project page, only show that project as an option
-    if (id && !node) {
-      const fixedProj = storedProjects.find(obj => obj.id === id);
+    if (!Array.isArray(storedProjects)) {
+      alert('localStorage has been corrupted. Storage must be reset.')
+      initializeStorage();
+    };
 
-      const projectOption = document.createElement('div');
-      projectOption.textContent = fixedProj.name;
-      projectOption.setAttribute('value', id);
+    // If adding/editing a task on a project page show that project as the first option
+    if (projId) {
+      const pageProjectOption = document.createElement('option');
+
+      const pageProject = storedProjects.find(obj => obj.id === projId);
+
+      setAttributes(pageProjectOption, {'selected': 'true', 'hidden': 'true', 'disabled': 'true', 'value': projId});
+        
+        pageProjectOption.textContent = pageProject.name.charAt(0).toUpperCase() + pageProject.name.slice(1);
+
+        parentProject.appendChild(pageProjectOption);
+    }
+
+    // If editing a task, default to the current parent project
+    parentProject.appendChild(noProject);
+
+    if (editParent && editParent !== 'None') {
+      const oldParentName = document.createElement('option');
+
+      const oldParent = storedProjects.find(obj => obj.id === editParent);
+
+      setAttributes(oldParentName, {'selected': 'true', 'hidden': 'true', 'disabled': 'true', 'value': editParent});
+      
+      oldParentName.textContent = oldParent.name.charAt(0).toUpperCase() + oldParent.name.slice(1);
+
+      parentProject.appendChild(oldParentName);
+    }
+
+    sort(storedProjects).forEach(element => {
+
+      const projectOption = document.createElement('option');
+
+      projectOption.setAttribute('value', element.id);
+      projectOption.textContent = element.name;
 
       parentProject.appendChild(projectOption);
-    
-    } else {
-
-      // If editing a task, default to the current parent project
-      parentProject.appendChild(noProject);
-
-      if (editParent && editParent !== 'None') {
-        const oldParentName = document.createElement('option');
-
-        const oldParent = storedProjects.find(obj => obj.id === editParent);
-
-        setAttributes(oldParentName, {'selected': 'true', 'hidden': 'true', 'disabled': 'true', 'value': editParent});
-        
-        oldParentName.textContent = oldParent.name.charAt(0).toUpperCase() + oldParent.name.slice(1);
-
-        parentProject.appendChild(oldParentName);
-      }
-
-      sort(storedProjects).forEach(element => {
-
-        const projectOption = document.createElement('option');
-
-        projectOption.setAttribute('value', element.id);
-        projectOption.textContent = element.name;
-
-        parentProject.appendChild(projectOption);
-      });
-    }
+    });
 
     input.appendChild(submit);
   }
@@ -289,13 +290,15 @@ const inputForm = (type, func, id = null, node = null, editName = null, editPare
         newTodo.name = name.value;
         
         // If editing a project, use current id
-        if (id) {
-          newTodo.id = id;
+        if (projId) {
+          newTodo.id = projId;
         } else {
         
         // Otherwise, generate new id
           newTodo.id = uuidv4();
+
         };
+
         newTodo.type = type;
   
       } else if (type === 'task') {
@@ -303,14 +306,16 @@ const inputForm = (type, func, id = null, node = null, editName = null, editPare
         newTodo.name = name.value;
 
         // If editing a task, use current id
-        if (id) {
-          newTodo.id = id;
+        if (taskId) {
+          newTodo.id = taskId;
         } else {
         
         // Otherwise, generate a new id
           newTodo.id = uuidv4();
         }
+        
         newTodo.parentId = parentProject.value;
+        
         newTodo.type = type;
   
         if (dueDate.value) {
@@ -330,8 +335,8 @@ const inputForm = (type, func, id = null, node = null, editName = null, editPare
       writeToStorage(newTodo);
       form.reset();
       input.remove();
-      if (id && !node) {
-        func(id);
+      if (projId) {
+        func(projId);
       } else {
         func();
       };

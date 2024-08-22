@@ -5,7 +5,7 @@ import populateTasks from "./populatetasks";
 import showHideComplete from "./showhidecomplete";
 
 // Load the page for an individual project
-const projectPageLoad = id => {
+const projectPageLoad = projId => {
 
   const content = document.getElementById('content');
 
@@ -13,7 +13,13 @@ const projectPageLoad = id => {
   clearAddButton();
 
   const storedProjects = JSON.parse(localStorage.getItem('projects'));
-  const project = storedProjects.find(obj => obj.id === id);
+
+  if (!Array.isArray(storedProjects)) {
+    alert('localStorage has been corrupted. Storage must be reset.')
+    initializeStorage();
+  };
+
+  const project = storedProjects.find(obj => obj.id === projId);
   const projectHeading = document.createElement('div');
   const projectTitle = document.createElement('div');
   const showHideCompleteBtn = document.createElement('button');
@@ -42,7 +48,7 @@ const projectPageLoad = id => {
   projectHeading.appendChild(projectTitle);
   projectHeading.appendChild(showHideCompleteBtn);
 
-  addContainer.addEventListener('click', () => inputForm('task', projectPageLoad, id))
+  addContainer.addEventListener('click', () => inputForm('task', projectPageLoad, projId))
 
   // Wire up the show/hide button and call the showHideComplete function
   showHideCompleteBtn.addEventListener('click', () => {
@@ -64,15 +70,20 @@ const projectPageLoad = id => {
 
   const storedTasks = JSON.parse(localStorage.getItem('tasks'));
 
+  if (!Array.isArray(storedTasks)) {
+    alert('localStorage has been corrupted. Storage must be reset.')
+    initializeStorage();
+  };
+
   if (storedTasks) {
     JSON.parse(localStorage.getItem('tasks')).forEach(
       obj => {
-        if (obj.parentId === id) {
+        if (obj.parentId === projId) {
           projTaskArray.push(obj);
         };
       }
     );
-    populateTasks(content, projTaskArray, projectPageLoad);
+    populateTasks(content, projTaskArray, projectPageLoad, projId);
   } else {
     alert(`ERROR: Tasks array is missing!`)
   };

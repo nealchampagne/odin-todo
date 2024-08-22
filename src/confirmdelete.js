@@ -31,7 +31,11 @@ const confirmDelete = (type, id , func, projId = null) => {
 
   yesBtn.addEventListener('click', () => {
     confirmModal.remove();
-    deleteFromStorage(type, id, func, projId = null)
+    if (projId) {
+      deleteFromStorage(type, id, func, projId);
+    } else {
+      deleteFromStorage(type, id, func);
+    }
   });
   noBtn.addEventListener('click', () => confirmModal.remove());
 

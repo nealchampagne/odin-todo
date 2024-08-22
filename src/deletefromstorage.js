@@ -1,7 +1,14 @@
+import initializeStorage from "./initializestorage";
+
 // Delete tasks/projects from local storage
 const deleteFromStorage = (type, id , func, projId = null) => {
 
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+
+    if (!Array.isArray(storedTasks)) {
+      alert('localStorage has been corrupted. Storage must be reset.')
+      initializeStorage();
+    };
 
   if (type === 'task') {
 
@@ -22,6 +29,11 @@ const deleteFromStorage = (type, id , func, projId = null) => {
 
     const storedProjects = JSON.parse(localStorage.getItem('projects'));
 
+    if (!Array.isArray(storedProjects)) {
+      alert('localStorage has been corrupted. Storage must be reset.')
+      initializeStorage();
+    };
+
     // Find the project and splice it out of the project array
     const targetProject = storedProjects.find(obj => obj.id === id);
     const targetProjIndex = storedProjects.indexOf(targetProject);
@@ -36,12 +48,17 @@ const deleteFromStorage = (type, id , func, projId = null) => {
     storedTasks.forEach(obj => {
       if (obj.parentId !== id) {
         trimmedTasks.push(obj);
-      }
+      };
     });
 
     localStorage.setItem('tasks', JSON.stringify(trimmedTasks));
-    func();
-  }
-} 
+
+    if (projId) {
+      func(projId);
+    } else {
+      func();
+    };
+  };
+} ;
 
 export default deleteFromStorage;

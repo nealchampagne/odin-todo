@@ -8,6 +8,11 @@ const populateProjects = (node, func) => {
 
   const arr = JSON.parse(localStorage.getItem('projects'));
 
+  if (!Array.isArray(arr)) {
+    alert('localStorage has been corrupted. Storage must be reset.')
+    initializeStorage();
+  };
+
   // Iterate through the projects array sorted alphabetically
   sort(arr).forEach(proj => {
 
@@ -38,7 +43,7 @@ const populateProjects = (node, func) => {
      *  when the user clicks the edit button */
     editBtn.addEventListener('click', (event) => {
       event.stopPropagation();
-      inputForm('project', func, proj.id, projectCard, proj.name);
+      inputForm('project', func, proj.id, projectCard, null, proj.name);
     })
 
     deleteBtn.classList.add('deletebutton');

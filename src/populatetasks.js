@@ -5,7 +5,7 @@ import inputForm from './input.js';
 import confirmDelete from './confirmdelete.js';
 
 // Create task cards for all tasks in a given array of task objects
-const populateTasks = (node, arr, func) => {
+const populateTasks = (node, arr, func, projId = null) => {
 
   const showHideCompleteBtn = document.getElementById('showhide');
 
@@ -129,16 +129,25 @@ const populateTasks = (node, arr, func) => {
 
     // Open the input form prepopulated with task info on edit button click
     editBtn.addEventListener('click', () => {
-      inputForm('task', func, task.id, taskCard, task.name, task.parentId,
-        task.dueDate, task.description, task.priority);
-    })
+      if (projId) {
+        inputForm('task', func, projId, taskCard, task.id, task.name, task.parentId,
+          task.dueDate, task.description, task.priority);
+      } else {
+        inputForm('task', func, null, taskCard, task.id, task.name, task.parentId,
+          task.dueDate, task.description, task.priority);
+      };
+    });
 
     deleteBtn.classList.add('deletebutton');
     deleteBtn.textContent = 'Delete';
 
     // Open confirmation modal on delete button click
     deleteBtn.addEventListener('click', () => {
-      confirmDelete('task', task.id, func);
+      if (projId) {
+        confirmDelete('task', task.id, func, projId);
+      } else {
+        confirmDelete('task', task.id, func);
+      }
     });
 
     // Find parent project by parentId property and add project name to card
@@ -151,6 +160,11 @@ const populateTasks = (node, arr, func) => {
     } else {
 
       const storedProjects = JSON.parse(localStorage.getItem("projects"));
+
+      if (!Array.isArray(storedProjects)) {
+        alert('localStorage has been corrupted. Storage must be reset.')
+        initializeStorage();
+      };
 
       storedProjects.forEach(proj => {
 

@@ -5,6 +5,11 @@ const writeToStorage = obj => {
     // Grab project array from localStorage
     const storedProjects = JSON.parse(localStorage.getItem("projects"));
 
+    if (!Array.isArray(storedProjects)) {
+      alert('localStorage has been corrupted. Storage must be reset.')
+      initializeStorage();
+    };
+
     // If a project with that id already exists, overwrite it
     storedProjects.forEach(element => {
       if (element.id === obj.id) {
@@ -24,6 +29,11 @@ const writeToStorage = obj => {
 
     // Grab task array from localStorage
     const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+
+    if (!Array.isArray(storedTasks)) {
+      alert('localStorage has been corrupted. Storage must be reset.')
+      initializeStorage();
+    };
 
     // If a task with that id already exists, overwrite it
     storedTasks.forEach(element => {
