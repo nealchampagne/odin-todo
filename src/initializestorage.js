@@ -11,6 +11,12 @@ const initializeStorage = () => {
     const tasks = [];
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
+
+  // If the showComplete key doesn't exist, initialize it to false
+  
+  if (localStorage.getItem('showComplete') === null) {
+    localStorage.setItem('showComplete', false);
+  }
 }
 
 export default initializeStorage;
