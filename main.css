@@ -1,0 +1,544 @@
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/style.css ***!
+  \*****************************************************************/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url(71abd9d04663b452666d.woff2) format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --sidebar-color: hsl(0, 50%, 94%);
+  --sidebar-hover: hsl(0, 20%, 84%);
+  --button-red: hsl(0, 50%, 54%);
+  --button-hover: hsl(0, 50%, 44%);
+  --page-font: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  justify-items: center;
+}
+
+/** Styling for sidebar and tabs*/
+#sidebar {
+  width: 20rem;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  background: var(--sidebar-color);
+  padding-top: 5rem;
+}
+
+.nav {
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 3rem);
+  height: 100%;
+  width: 100%;
+  justify-items: start;
+  align-items: center;
+}
+
+.navbutton {
+  border: none;
+  border-radius: 0.25rem;
+  background: inherit;
+  width: 100%;
+  height: 100%;
+  text-align: start;
+  padding-left: 5rem;
+  font-family: var(--page-font);
+  font-size: 1rem;
+  color:hsl(0, 0%, 20%);
+}
+
+.navbutton:hover {
+  background: var(--sidebar-hover);
+  cursor: pointer;
+}
+
+/** Main page container */
+.container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: grid;
+  grid-auto-rows: min-content;
+  justify-items: start;
+  align-items: start;
+  gap: 1rem;
+  padding: 5rem 10rem;
+  width: 60rem;
+}
+
+.apptitle {
+  justify-self: center;
+  align-self: center;
+  font-family: var(--page-font);
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+/** Main page content that changes on tab-switching */
+#content {
+  display: grid;
+  grid-template-rows: 5rem repeat(auto-fit, max-content);
+  justify-items: start;
+  align-items: center;
+  font-family: var(--page-font);
+}
+
+.pageheading {
+  display: grid;
+  width: 40rem;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  align-items: end;
+  padding: 0.5rem;
+  font-family: var(--page-font);
+}
+
+.pagetitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/** Show/hide button */
+#showhide {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  justify-self: end;
+}
+
+.showhide:hover {
+  cursor: pointer;
+}
+
+/** Todo cards */
+.taskcard, .projectcard {
+  display: grid;
+  justify-self: center;
+  align-items: center;
+  gap: 1rem;
+  width: 40rem;
+  height: 5rem;
+  border-bottom: 1px solid lightgray;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.taskcard {
+  grid-template-columns: 2rem 1fr 0.25fr;
+}
+
+.taskcard:hover, .projectcard:hover {
+  background: hsl(0, 0%, 90%)
+}
+
+.complete > .leftcontainer{
+  text-decoration: line-through;
+  color:hsl(0, 0%, 50%)
+}
+
+.hidden {
+  display: none;
+}
+
+.projectcard {
+  grid-template-columns: 1fr 0.25fr;
+}
+
+.projectname {
+  width: min-content;
+}
+
+.leftcontainer {
+  display: grid;
+  grid-template-rows: repeat(3, 1.5rem);
+  width: max-content;
+  align-self: start;
+  align-items: start;
+}
+
+/** If no description, collapse to remove unsightly blank space */
+.nodesc .leftcontainer{
+  grid-template-rows: repeat(2, 1.5rem);
+}
+
+/** Color-coded checkboxes to show completion and priority */
+.checkbox {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  align-self: start;
+  font-family: 'Material Icons';
+  font-weight: 700;
+}
+
+.highestpriority {
+  background: hsl(0, 84%, 65%);
+  border: 3px solid hsl(0, 56%, 38%);
+  color: hsl(0, 56%, 38%);
+}
+
+.highpriority {
+  background: hsl(24, 84%, 59%);
+  border: 3px solid hsl(24, 98%, 34%);
+  color: hsl(24, 98%, 34%);
+}
+
+.mediumpriority {
+  background: hsl(61, 58%, 66%);
+  border: 3px solid hsl(51, 85%, 32%);
+  color: hsl(51, 85%, 32%);
+}
+
+.lowpriority {
+  background: hsl(113, 78%, 87%);
+  border: 3px solid hsl(113, 50%, 27%);
+  color: hsl(113, 50%, 27%);
+}
+
+.lowestpriority {
+  background: hsl(197, 67%, 56%);
+  border: 3px solid hsl(226, 89%, 45%);
+  color: hsl(226, 89%, 45%);
+}
+
+.checkbox:hover {
+  cursor: pointer;
+}
+
+.taskname {
+  overflow-y: auto;
+  font-size: 1rem;
+}
+
+.projectname {
+  overflow-y: auto;
+  font-size: 1.5rem;
+}
+
+.duedatecontainer {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.taskduedate {
+  font-size: 0.8rem;
+  color: red;
+}
+
+/** Color code due flags to convey urgency */
+.duedateflag {
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.25rem;
+}
+
+.overdue {
+  background: hsl(0, 50%, 54%);
+  color: white;
+}
+
+.duetoday {
+  background: hsl(24, 86%, 45%);
+  color: white;
+}
+
+.duetomorrow {
+  background: hsl(51, 85%, 32%);
+  color: white;
+}
+
+.plentyoftime {
+  background: hsl(113, 50%, 27%);
+  color: white;
+}
+
+.taskdesc {
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 0.25rem;
+}
+
+.rightcontainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: end;
+  height: 100%;
+}
+
+.buttoncontainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.25rem;
+  justify-self: end;
+  align-self: start;
+}
+
+/** Use symbols for edit and delete buttons */
+.editbutton, .deletebutton {
+  border: none;
+  border-radius: 0.25rem;
+  background: white;
+  height: 1.5rem;
+  width: 1.5rem;
+  font-family: 'Material Icons';
+  font-size: 1.25rem;
+}
+
+.editbutton:hover, .deletebutton:hover {
+  cursor: pointer;
+}
+
+.parentproject {
+  align-self: end;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.addcontainer {
+  display: grid;
+  grid-template-columns: 2rem 7rem;
+  justify-items: start;
+  align-items: center;
+  font-family: var(--page-font);
+}
+
+/** Add todo button */
+#add {
+  display: grid;
+  height: 1.75rem;
+  width: 1.75rem;
+  border: none;
+  border-radius: 1rem;
+  font-family: 'Material Icons';
+  font-size: 1.5rem;
+  color: hsl(0, 0%, 20%);
+  background: white;
+}
+
+.addcontainer:hover {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/** Task and project input forms */
+.taskinput, .projectinput {
+  display: grid;
+  top: 10vh;
+  left: 50%;
+  width: 40rem;
+  display: grid;
+  grid-template-rows: 2rem 1fr 3rem;
+  justify-items: start;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+}
+
+.taskinput {
+  height: 25rem;
+}
+
+.projectinput{
+  height: 10rem;
+}
+
+.inputtop {
+  display: grid;
+  grid-template-columns: 1fr 2rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.formlabel {
+  justify-self: start;
+  height: 100%;
+  font-family: var(--page-font);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.closebtn {
+  justify-self: end;
+  width: 2rem;
+  height: 2rem;
+  margin-right: -1rem;
+  margin-top: -1rem;
+  border: none;
+  background: white;
+  color: var(--button-red);
+  font-size: 2rem;
+}
+
+.closebtn:hover {
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--button-hover);
+}
+
+.taskform, .projectform {
+  display: grid;
+  justify-items: start;
+  align-items: start;
+  justify-self: start;
+  font-family: var(--page-font);
+}
+
+.taskform, .projectform {
+  grid-template-columns: 7rem 1fr;
+}
+
+.taskform {
+  grid-template-rows: 3rem 6rem 3rem 3rem 3rem;
+}
+
+.projectform {
+  grid-template-rows: 3rem;
+}
+
+label {
+  margin-top: 0.25rem;
+}
+
+.nameinput, .dateinput {
+  appearance: none;
+  background: white;
+  height: 2rem;
+  padding: 1rem 0.5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-family: var(--page-font);
+}
+
+.nameinput {
+  width: 25rem;
+}
+
+.dateinput {
+  width: 10rem;
+}
+
+.fixedproject {
+  margin-top: 0.25rem;
+}
+
+.dateinput:hover {
+  cursor: pointer;
+}
+
+.textarea {
+  padding: 0.25rem;
+}
+
+.select {
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 2rem;
+  min-width: 2.5rem;
+  background: white;
+  padding: 0 0.25rem;
+  font-family: var(--page-font);
+}
+
+.textarea, .input, .select {
+  border: 1px solid black;
+  border-radius: 5px;
+  font-family: var(--page-font);
+}
+
+.nameinput:focus-visible, .dateinput:hover, .textarea:focus-visible, .select:focus-visible {
+  outline: none;
+}
+
+.nameinput:hover, .dateinput:hover, .textarea:hover, .select:hover {
+  background: hsl(0, 0%, 95%);
+}
+
+.nameinput:focus, .dateinput:focus, .textarea:focus, .select:focus {
+  border: 1px solid blue;
+  background: white;
+}
+
+.submitbtn {
+  justify-self: end;
+  align-self: start;
+  margin-top: 0.25rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--button-red);
+  font-family: var(--page-font);
+  font-weight: 700;
+  color: white;
+}
+
+.submitbtn:hover {
+  cursor: pointer;
+  background: var(--button-hover);
+}
+
+/** Modal to confirm deletion of tasks/projects */
+.confirmdelete {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  height: 10rem;
+  display: grid;
+  grid-template-rows: 2rem 1.5rem 3rem;
+  justify-items: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: white;
+  box-shadow: 0px 0px 10px 10px hsl(0, 0%, 90%);
+  font-family: var(--page-font);
+}
+
+.confirmtitle {
+  font-size: 1.5rem;
+}
+
+.confirmsubtext {
+  font-size: 1rem;
+}
+
+.confbuttoncontainer {
+  display: grid;
+  grid-template-columns: 3rem 3rem;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.confirmbutton {
+  height: 2rem;
+  width: 3rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-family: var(--page-font);
+}
+
+.confirmbutton:hover {
+  cursor: pointer;
+  background:hsl(0, 0%, 70%);
+}
