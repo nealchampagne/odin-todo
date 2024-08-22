@@ -2,6 +2,7 @@ import sort from './sort';
 import projectPageLoad from './projectpageload';
 import inputForm from './input';
 import confirmDelete from './confirmdelete';
+import initializeStorage from './initializestorage';
 
 // Fill the projects page with project cards
 const populateProjects = (node, func) => {

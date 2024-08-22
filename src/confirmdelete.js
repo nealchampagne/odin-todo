@@ -3,7 +3,7 @@ import deleteFromStorage from "./deletefromstorage";
 // Show a confirmation modal in case the user clicked delete by accident
 const confirmDelete = (type, id , func, projId = null) => {
   
-  const container = document.querySelector('.container');
+  const content = document.querySelector('.container');
   const confirmModal = document.createElement('div');
   const confirmTitle = document.createElement('div');
   const confirmSubtext = document.createElement('div');

@@ -5,6 +5,7 @@ import writeToStorage from './writestorage.js';
 import clearChildren from './clearchildren.js';
 import moment from 'moment/moment.js';
 import sort from './sort.js';
+import initializeStorage from './initializestorage.js';
 
 const inputForm = (type, func, projId = null, node = null, taskId = null, editName = null, editParent = null, editDate = null, editDesc = null, editPrio = null) => {
 

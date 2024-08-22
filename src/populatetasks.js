@@ -3,6 +3,7 @@ import { compareAsc, differenceInCalendarDays, endOfToday, format, startOfToday 
 import writeToStorage from './writestorage.js';
 import inputForm from './input.js';
 import confirmDelete from './confirmdelete.js';
+import initializeStorage from './initializestorage.js';
 
 // Create task cards for all tasks in a given array of task objects
 const populateTasks = (node, arr, func, projId = null) => {

@@ -1,3 +1,5 @@
+import initializeStorage from "./initializestorage";
+
 const writeToStorage = obj => {
   
   if (obj.type === 'project') {
