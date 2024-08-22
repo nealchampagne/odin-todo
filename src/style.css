@@ -76,7 +76,7 @@ body {
 
 #content {
   display: grid;
-  grid-template-rows: 5rem repeat(auto-fit, minmax(0, 5rem));
+  grid-template-rows: 5rem repeat(auto-fit, max-content);
   justify-items: start;
   align-items: center;
   font-family: var(--page-font);
@@ -84,12 +84,28 @@ body {
 
 .pageheading {
   display: grid;
-  grid-template-rows: 1fr;
-  justify-items: center;
-  align-items: center;
+  width: 40rem;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
+  align-items: end;
   padding: 0.5rem;
+  font-family: var(--page-font);
+}
+
+.pagetitle {
   font-size: 2rem;
   font-weight: 700;
+}
+
+#showhide {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  justify-self: end;
+}
+
+.showhide:hover {
+  cursor: pointer;
 }
 
 .taskcard, .projectcard {
@@ -108,13 +124,31 @@ body {
   grid-template-columns: 2rem 1fr 0.25fr;
 }
 
-.projectcard {
-  grid-template-columns: 1fr;
+.taskcard:hover, .projectcard:hover {
+  background: hsl(0, 0%, 90%)
 }
 
-.taskcontent {
+.complete > .leftcontainer{
+  text-decoration: line-through;
+  color:hsl(0, 0%, 50%)
+}
+
+.hidden {
+  display: none;
+}
+
+.projectcard {
+  grid-template-columns: 1fr 2rem 2rem;
+}
+
+.projectname {
+  width: min-content;
+}
+
+.leftcontainer {
   display: grid;
   grid-template-rows: repeat(3, 1.5rem);
+  width: max-content;
   align-self: start;
   align-items: start;
 }
@@ -123,7 +157,7 @@ body {
   height: 3.5rem;
 }
 
-.nodesc .taskcontent{
+.nodesc .leftcontainer{
   grid-template-rows: repeat(2, 1.5rem);
 }
 
@@ -180,9 +214,43 @@ body {
   font-size: 1.5rem;
 }
 
+.duedatecontainer {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .taskduedate {
   font-size: 0.8rem;
   color: red;
+}
+
+.duedateflag {
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.25rem;
+}
+
+.overdue {
+  background: hsl(0, 50%, 54%);
+  color: white;
+}
+
+.duetoday {
+  background: hsl(24, 86%, 45%);
+  color: white;
+}
+
+.duetomorrow {
+  background: hsl(51, 85%, 32%);
+  color: white;
+}
+
+.plentyoftime {
+  background: hsl(113, 50%, 27%);
+  color: white;
 }
 
 .taskdesc {
@@ -190,6 +258,35 @@ body {
   font-size: 0.8rem;
   color: gray;
   margin-top: 0.25rem;
+}
+
+.rightcontainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: end;
+  height: 100%;
+}
+
+.buttoncontainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.25rem;
+  justify-self: end;
+  align-self: start;
+}
+
+.editbutton, .deletebutton {
+  border: none;
+  border-radius: 0.25rem;
+  background: white;
+  height: 1.5rem;
+  width: 1.5rem;
+  font-family: 'Material Icons';
+  font-size: 1.25rem;
+}
+
+.editbutton:hover, .deletebutton:hover {
+  cursor: pointer;
 }
 
 .parentproject {
@@ -375,4 +472,49 @@ label {
 .submitbtn:hover {
   cursor: pointer;
   background: var(--button-hover);
+}
+
+.confirmdelete {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  height: 10rem;
+  display: grid;
+  grid-template-rows: 2rem 1.5rem 3rem;
+  justify-items: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 10px 10px hsl(0, 0%, 90%);
+  font-family: var(--page-font);
+}
+
+.confirmtitle {
+  font-size: 1.5rem;
+}
+
+.confirmsubtext {
+  font-size: 1rem;
+}
+
+.confbuttoncontainer {
+  display: grid;
+  grid-template-columns: 3rem 3rem;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.confirmbutton {
+  height: 2rem;
+  width: 3rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-family: var(--page-font);
+}
+
+.confirmbutton:hover {
+  cursor: pointer;
+  background:hsl(0, 0%, 70%);
 }
