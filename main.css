@@ -5,8 +5,8 @@
 }
 
 @font-face {
-  font-family: 'Material Icons';
-  src: url(71abd9d04663b452666d.woff2) format('woff2');
+  font-family: "Material Icons";
+  src: url(71abd9d04663b452666d.woff2) format("woff2");
   font-weight: 400;
   font-style: normal;
 }
@@ -16,7 +16,7 @@
   --sidebar-hover: hsl(0, 20%, 84%);
   --button-red: hsl(0, 50%, 54%);
   --button-hover: hsl(0, 50%, 44%);
-  --page-font: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+  --page-font: Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
 }
 
 body {
@@ -55,7 +55,7 @@ body {
   padding-left: 5rem;
   font-family: var(--page-font);
   font-size: 1rem;
-  color:hsl(0, 0%, 20%);
+  color: hsl(0, 0%, 20%);
 }
 
 .navbutton:hover {
@@ -121,7 +121,8 @@ body {
 }
 
 /** Todo cards */
-.taskcard, .projectcard {
+.taskcard,
+.projectcard {
   display: grid;
   justify-self: center;
   align-items: center;
@@ -137,13 +138,14 @@ body {
   grid-template-columns: 2rem 1fr 0.25fr;
 }
 
-.taskcard:hover, .projectcard:hover {
-  background: hsl(0, 0%, 90%)
+.taskcard:hover,
+.projectcard:hover {
+  background: hsl(0, 0%, 90%);
 }
 
-.complete > .leftcontainer{
+.complete > .leftcontainer {
   text-decoration: line-through;
-  color:hsl(0, 0%, 50%)
+  color: hsl(0, 0%, 50%);
 }
 
 .hidden {
@@ -167,7 +169,7 @@ body {
 }
 
 /** If no description, collapse to remove unsightly blank space */
-.nodesc .leftcontainer{
+.nodesc .leftcontainer {
   grid-template-rows: repeat(2, 1.5rem);
 }
 
@@ -177,7 +179,7 @@ body {
   height: 1.5rem;
   border-radius: 1rem;
   align-self: start;
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: 700;
 }
 
@@ -288,17 +290,19 @@ body {
 }
 
 /** Use symbols for edit and delete buttons */
-.editbutton, .deletebutton {
+.editbutton,
+.deletebutton {
   border: none;
   border-radius: 0.25rem;
   background: white;
   height: 1.5rem;
   width: 1.5rem;
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 1.25rem;
 }
 
-.editbutton:hover, .deletebutton:hover {
+.editbutton:hover,
+.deletebutton:hover {
   cursor: pointer;
 }
 
@@ -323,7 +327,7 @@ body {
   width: 1.75rem;
   border: none;
   border-radius: 1rem;
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-size: 1.5rem;
   color: hsl(0, 0%, 20%);
   background: white;
@@ -335,7 +339,8 @@ body {
 }
 
 /** Task and project input forms */
-.taskinput, .projectinput {
+.taskinput,
+.projectinput {
   display: grid;
   top: 10vh;
   left: 50%;
@@ -354,7 +359,7 @@ body {
   height: 25rem;
 }
 
-.projectinput{
+.projectinput {
   height: 10rem;
 }
 
@@ -392,7 +397,8 @@ body {
   color: var(--button-hover);
 }
 
-.taskform, .projectform {
+.taskform,
+.projectform {
   display: grid;
   justify-items: start;
   align-items: start;
@@ -400,7 +406,8 @@ body {
   font-family: var(--page-font);
 }
 
-.taskform, .projectform {
+.taskform,
+.projectform {
   grid-template-columns: 7rem 1fr;
 }
 
@@ -416,7 +423,8 @@ label {
   margin-top: 0.25rem;
 }
 
-.nameinput, .dateinput {
+.nameinput,
+.dateinput {
   appearance: none;
   background: white;
   height: 2rem;
@@ -456,21 +464,32 @@ label {
   font-family: var(--page-font);
 }
 
-.textarea, .input, .select {
+.textarea,
+.input,
+.select {
   border: 1px solid black;
   border-radius: 5px;
   font-family: var(--page-font);
 }
 
-.nameinput:focus-visible, .dateinput:hover, .textarea:focus-visible, .select:focus-visible {
+.nameinput:focus-visible,
+.dateinput:hover,
+.textarea:focus-visible,
+.select:focus-visible {
   outline: none;
 }
 
-.nameinput:hover, .dateinput:hover, .textarea:hover, .select:hover {
+.nameinput:hover,
+.dateinput:hover,
+.textarea:hover,
+.select:hover {
   background: hsl(0, 0%, 95%);
 }
 
-.nameinput:focus, .dateinput:focus, .textarea:focus, .select:focus {
+.nameinput:focus,
+.dateinput:focus,
+.textarea:focus,
+.select:focus {
   border: 1px solid blue;
   background: white;
 }
@@ -537,5 +556,6 @@ label {
 
 .confirmbutton:hover {
   cursor: pointer;
-  background:hsl(0, 0%, 70%);
+  background: hsl(0, 0%, 70%);
 }
+
