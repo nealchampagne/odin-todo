@@ -1,5 +1,6 @@
 const showHideComplete = () => {
 
+  // Check localStorage to get the current state and toggle it
   const showHideCompleteBtn = document.getElementById('showhide');
   if (JSON.parse(localStorage.getItem('showComplete')) === false) {
     localStorage.setItem('showComplete', true);
@@ -7,6 +8,7 @@ const showHideComplete = () => {
     localStorage.setItem('showComplete', false);
   }
 
+  // Then, hide or show completed tasks, as appropriate
   const content = document.getElementById('content');
   for (const child of content.children) {
     if (showHideCompleteBtn.classList.contains('showcomplete')) {
