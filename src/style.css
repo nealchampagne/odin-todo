@@ -26,6 +26,7 @@ body {
   justify-items: center;
 }
 
+/** Styling for sidebar and tabs*/
 #sidebar {
   width: 20rem;
   display: grid;
@@ -62,6 +63,7 @@ body {
   cursor: pointer;
 }
 
+/** Main page container */
 .container {
   overflow-y: auto;
   overflow-x: hidden;
@@ -74,6 +76,7 @@ body {
   width: 60rem;
 }
 
+/** Main page content that changes on tab-switching */
 #content {
   display: grid;
   grid-template-rows: 5rem repeat(auto-fit, max-content);
@@ -97,6 +100,7 @@ body {
   font-weight: 700;
 }
 
+/** Show/hide button */
 #showhide {
   padding: 0.25rem 0.5rem;
   border: none;
@@ -108,6 +112,7 @@ body {
   cursor: pointer;
 }
 
+/** Todo cards */
 .taskcard, .projectcard {
   display: grid;
   justify-self: center;
@@ -153,14 +158,12 @@ body {
   align-items: start;
 }
 
-.nodesc {
-  height: 3.5rem;
-}
-
+/** If no description, collapse to remove unsightly blank space */
 .nodesc .leftcontainer{
   grid-template-rows: repeat(2, 1.5rem);
 }
 
+/** Color-coded checkboxes to show completion and priority */
 .checkbox {
   width: 1.5rem;
   height: 1.5rem;
@@ -226,6 +229,7 @@ body {
   color: red;
 }
 
+/** Color code due flags to convey urgency */
 .duedateflag {
   font-size: 0.8rem;
   border: none;
@@ -275,6 +279,7 @@ body {
   align-self: start;
 }
 
+/** Use symbols for edit and delete buttons */
 .editbutton, .deletebutton {
   border: none;
   border-radius: 0.25rem;
@@ -303,6 +308,7 @@ body {
   font-family: var(--page-font);
 }
 
+/** Add todo button */
 #add {
   display: grid;
   height: 1.75rem;
@@ -320,6 +326,7 @@ body {
   font-weight: 700;
 }
 
+/** Task and project input forms */
 .taskinput, .projectinput {
   display: grid;
   top: 10vh;
@@ -474,6 +481,7 @@ label {
   background: var(--button-hover);
 }
 
+/** Modal to confirm deletion of tasks/projects */
 .confirmdelete {
   position: fixed;
   left: 50%;
