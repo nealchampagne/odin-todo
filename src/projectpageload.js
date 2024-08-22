@@ -2,7 +2,9 @@ import clearChildren from "./clearchildren";
 import clearAddButton from "./clearaddbutton";
 import inputForm from "./input";
 import populateTasks from "./populatetasks";
+import showHideComplete from "./showhidecomplete";
 
+// Load the page for an individual project
 const projectPageLoad = id => {
 
   const content = document.getElementById('content');
@@ -13,19 +15,51 @@ const projectPageLoad = id => {
   const storedProjects = JSON.parse(localStorage.getItem('projects'));
   const project = storedProjects.find(obj => obj.id === id);
   const projectHeading = document.createElement('div');
+  const projectTitle = document.createElement('div');
+  const showHideCompleteBtn = document.createElement('button');
   const addLabel = document.getElementById('addlabel');
   const addContainer = document.querySelector('.addcontainer');
 
   projectHeading.classList.add('pageheading');
+  
+  projectTitle.classList.add('pagetitle');
+  projectTitle.textContent = project.name;
 
-  projectHeading.textContent = project.name;
+  showHideCompleteBtn.setAttribute('id', 'showhide');
+
+  // Check the value of showComplete and show/hide elements as appropriate
+  if (JSON.parse(localStorage.getItem('showComplete')) === false) {
+    showHideCompleteBtn.classList.add('hidecomplete');
+    showHideCompleteBtn.textContent = 'Show completed tasks';
+  } else {
+    showHideCompleteBtn.classList.add('showcomplete');
+    showHideCompleteBtn.textContent = 'Hide completed tasks';
+  };
 
   addLabel.textContent = 'Add task';
 
   content.appendChild(projectHeading);
+  projectHeading.appendChild(projectTitle);
+  projectHeading.appendChild(showHideCompleteBtn);
 
   addContainer.addEventListener('click', () => inputForm('task', projectPageLoad, id))
 
+  // Wire up the show/hide button and call the showHideComplete function
+  showHideCompleteBtn.addEventListener('click', () => {
+    if (showHideCompleteBtn.textContent === 'Show completed tasks') {
+      showHideCompleteBtn.textContent = 'Hide completed tasks';
+      showHideCompleteBtn.classList.remove('hidecomplete');
+      showHideCompleteBtn.classList.add('showcomplete');
+      showHideComplete();
+    } else {
+      showHideCompleteBtn.textContent = 'Show completed tasks';
+      showHideCompleteBtn.classList.remove('showcomplete');
+      showHideCompleteBtn.classList.add('hidecomplete');
+      showHideComplete();
+    }
+  });
+
+  // Populate the page with the given project's tasks
   const projTaskArray = [];
 
   const storedTasks = JSON.parse(localStorage.getItem('tasks'));
@@ -38,7 +72,7 @@ const projectPageLoad = id => {
         };
       }
     );
-    populateTasks(content, projTaskArray);
+    populateTasks(content, projTaskArray, projectPageLoad);
   } else {
     alert(`ERROR: Tasks array is missing!`)
   };
